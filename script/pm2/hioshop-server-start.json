@@ -1,0 +1,10 @@
+{
+    "apps": [
+        {
+            "name": "hioshop-server",
+            "script": "development.js",
+            "watch": false,
+            "cwd": "/root/project/hioshop-server/"
+        }
+    ]
+}

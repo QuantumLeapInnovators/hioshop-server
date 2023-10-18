@@ -1,10 +1,10 @@
 // default config
 module.exports = {
     default_module: 'api',
-	port: 8360, //服务端口，可自定义
+    port: 8360, //服务端口，可自定义
     weixin: {
-        appid: 'wx7af111110000000', // 小程序 appid
-        secret: 'cb8e5adce569f9bddce5b8123123e1115aaddce505', // 小程序密钥
+        appid: 'wxa7b7fd2e85c975a2', // 小程序 appid
+        secret: '04f0000bbc9178dd58efd4c95f1998de', // 小程序密钥
         mch_id: '15988888888', // 商户帐号ID
         partner_key: 'asdasdasdasdasdasdasd', // 微信支付密钥
         notify_url: 'https://www.您的域名.com/api/pay/notify' // 微信支付异步通知
@@ -17,12 +17,12 @@ module.exports = {
         appkey: '123123123123123123123123', // 对应快递鸟用户后台 API key
         request_url: 'http://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx'
     },
-   mianexpress:{
+    mianexpress: {
         appid: '123123', // 对应快递鸟用户后台 用户ID
         appkey: '123123-4e61236-94cb5297309a', // 对应快递鸟用户后台 API key
         request_url: 'http://testapi.kdniao.com:8081/api/EOrderService',
         print_url: 'http://sandboxapi.kdniao.com:8080/kdniaosandbox/gateway/exterfaceInvoke.json',
-        ip_server_url:'http://www.kdniao.com/External/GetIp.aspx'
+        ip_server_url: 'http://www.kdniao.com/External/GetIp.aspx'
     },
     qiniu: {
         access_key: 'asdlakjsdlajlajsdlas',      // 在七牛密钥管理中获取
@@ -39,12 +39,12 @@ module.exports = {
         // https://developer.qiniu.com/kodo/manual/1671/region-endpoint
         zoneNum: 0  // 这个自己根据地区设置：华东 0；华北 1；华南 2； 北美 3；东南亚 4
     },
-    aliexpress:{
+    aliexpress: {
         // https://market.aliyun.com/products/56928004/cmapi021863.html?spm=5176.730005.productlist.d_cmapi021863.6ba73524uQjLqE&innerSource=search_%E5%85%A8%E5%9B%BD%E5%BF%AB%E9%80%92%E7%89%A9%E6%B5%81%E6%9F%A5%E8%AF%A2-%E5%BF%AB%E9%80%92%E6%9F%A5%E8%AF%A2%E6%8E%A5%E5%8F%A3#sku=yuncode1586300000
-        url:'http://wuliu.market.alicloudapi.com/kdi', //阿里云的物流查询api，收费的
-        appcode: 'asldjalsjdlasjdla' ,// 阿里云后台获取
+        url: 'http://wuliu.market.alicloudapi.com/kdi', //阿里云的物流查询api，收费的
+        appcode: 'asldjalsjdlasjdla',// 阿里云后台获取
     },
-	templateId:{
-		deliveryId:'w6AMCJ0nVWTsFasdasdgnlNlmCf9TTDmG6_U' // 模板id。在订阅消息里设置好后就可以得到
-	},
+    templateId: {
+        deliveryId: 'w6AMCJ0nVWTsFasdasdgnlNlmCf9TTDmG6_U' // 模板id。在订阅消息里设置好后就可以得到
+    },
 };

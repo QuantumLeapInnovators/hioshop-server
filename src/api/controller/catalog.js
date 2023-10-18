@@ -41,7 +41,7 @@ module.exports = class extends Base {
                 is_delete: 0
             }).order({
                 sort_order: 'asc'
-            }).field('name,id,goods_brief,min_retail_price,list_pic_url,goods_number').page(page, size).countSelect();
+            }).field('name,id,goods_brief,min_retail_price,list_pic_url,goods_number,is_new').page(page, size).countSelect();
             return this.success(list);
         } else {
             let list = await this.model('goods').where({

@@ -21,4 +21,38 @@ module.exports = class extends think.Controller {
 		const tokenSerivce = think.service('token', 'api');
 		return tokenSerivce.getUserId(token);
 	}
+
+ /**
+   * display error page
+   * @param  {Number} status []
+   * @return {Promise}        []
+   */
+ displayErrorPage(status){
+    let module = 'common';
+    if(think.mode !== think.mode_module){
+      module = this.config('default_module');
+    }
+    let file = `${module}/error/${status}.html`;
+    let options = this.config('tpl');
+    options = think.extend({}, options, {type: 'ejs'});
+    return this.display(file, options);
+  }
+	 
+//     /**
+//    * Bad Request 
+//    * @return {Promise} []
+//    */
+//     _400Action(){
+//         return this.displayErrorPage(400);
+//       }
+
+  /**
+   * Internal Server Error
+   * @return {Promise}      []
+   */
+  _500Action(){
+    console.info("throw 500 response 400")
+     return this.fail(500, '未知错误');
+  }
+
 };

@@ -44,6 +44,7 @@ exports.model = {
 exports.logger = {
     type: isDev ? 'console' : 'dateFile',
     console: {
+        level: 'ALL',
         handle: Console
     },
     file: {

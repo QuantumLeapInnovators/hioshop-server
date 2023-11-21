@@ -318,7 +318,9 @@ module.exports = class extends Base {
         ids = Array.isArray(ids);
 
         const model = this.model('user');
-        const data = await model.where(`id in (${ids.join(',')})`).delete();
+        const data = await model.where({
+            id:["IN", ids]
+        }).delete();
         return this.success(data);
     }
     async banByIdsAction() {

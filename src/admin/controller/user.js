@@ -1,5 +1,7 @@
 const Base = require('./base.js');
+const httpErrorCode=require("../../common/config/httpErrorCode.js");
 const moment = require('moment');
+const md5 = require('md5');
 module.exports = class extends Base {
     /**
      * index action
@@ -278,4 +280,58 @@ module.exports = class extends Base {
         }).limit(1).delete();
         return this.success();
     }
+    async createUserAction(){
+        const nickname = this.post('nickname');
+        const username = this.post('username');
+        const name = this.post('name');
+        const password = this.post('password');
+        const mobile = this.post('mobile');
+        const clientIp = this.ctx.ip;
+
+        // check by username;
+        const model = this.model('user');
+        const data = await model.where({
+            username: username
+        })
+        if(!think.isEmpty(data)){
+            this.fail(httpErrorCode.DUPLICATE_USERNAME)
+        }
+
+        // add new user
+        let currentTime = parseInt(new Date().getTime() / 1000);
+        let res = await this.model("user").add({
+            nickname: nickname,
+            username: username,
+            name: name,
+            password: md5(password),
+            register_time: currentTime,
+            register_ip: clientIp,
+            mobile: mobile,
+        });
+        return this.success(res);
+    }
+    async removeByIdsAction(){
+        const ids = this.post('ids');
+        const clientIp = this.ctx.ip;
+        console.log("removeByIdsAction by admin", clientIp);
+
+        ids = Array.isArray(ids);
+
+        const model = this.model('user');
+        const data = await model.where(`id in (${ids.join(',')})`).delete();
+        return this.success(data);
+    }
+    async banByIdsAction() {
+        const ids = this.post('ids');
+        const is_ban = this.post('isBan');
+        const clientIp = this.ctx.ip;
+        console.log("banByIdsAction by admin", clientIp);
+
+        const model = this.model('user');
+        const data = await model.where(`id in (${ids.join(',')})`).update({
+            is_ban: (is_ban ? 1 : 0)
+        });
+        return this.success(data);
+    }
+
 };

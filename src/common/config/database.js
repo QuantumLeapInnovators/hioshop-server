@@ -5,9 +5,9 @@ module.exports = {
     database: 'hiolabsDB',
     prefix: 'hiolabs_',
     encoding: 'utf8mb4',
-    host: '192.168.2.28',
+    host: '192.168.50.129',
     port: '3306',
     user: 'root',
-    password: '123456liu',
+    password: '123456',
     dateStrings: true
 };

@@ -12,15 +12,15 @@ module.exports = class extends Base {
         const size = this.get('size') || 10;
         let nickname = this.get('nickname') || '';
         const buffer = Buffer.from(nickname);
-        nickname = buffer.toString('base64');
+        // nickname = buffer.toString('base64');
         const model = this.model('user');
         const data = await model.where({
-            nickname: ['like', `%${nickname}%`],
+            'nickname|name|username': ['like', `%${nickname}%`],
         }).order(['id DESC']).page(page, size).countSelect();
         for (const item of data.data) {
             item.register_time = moment.unix(item.register_time).format('YYYY-MM-DD HH:mm:ss');
             item.last_login_time = moment.unix(item.last_login_time).format('YYYY-MM-DD HH:mm:ss');
-            item.nickname = Buffer.from(item.nickname, 'base64').toString();
+            // item.nickname = Buffer.from(item.nickname, 'base64').toString();
         }
         let info = {
             userData: data,
@@ -287,14 +287,15 @@ module.exports = class extends Base {
         const password = this.post('password');
         const mobile = this.post('mobile');
         const clientIp = this.ctx.ip;
-
+        
         // check by username;
         const model = this.model('user');
         const data = await model.where({
             username: username
-        })
+        }).select();
+        // console.info("params username", data)
         if(!think.isEmpty(data)){
-            this.fail(httpErrorCode.DUPLICATE_USERNAME)
+            return this.fail(httpErrorCode.DUPLICATE_USERNAME.code, httpErrorCode.DUPLICATE_USERNAME.msg)
         }
 
         // add new user
@@ -315,11 +316,12 @@ module.exports = class extends Base {
         const clientIp = this.ctx.ip;
         console.log("removeByIdsAction by admin", clientIp);
 
-        ids = Array.isArray(ids);
+        const _ids = Array.isArray(ids) ? ids : [ids];
 
+        console.log("params ids", ids);
         const model = this.model('user');
         const data = await model.where({
-            id:["IN", ids]
+            id:["IN", _ids]
         }).delete();
         return this.success(data);
     }
@@ -328,9 +330,11 @@ module.exports = class extends Base {
         const is_ban = this.post('isBan');
         const clientIp = this.ctx.ip;
         console.log("banByIdsAction by admin", clientIp);
-
+        const _ids = Array.isArray(ids) ? ids : [ids];
         const model = this.model('user');
-        const data = await model.where(`id in (${ids.join(',')})`).update({
+        const data = await model.where({
+            id:["IN", _ids]
+        }).update({
             is_ban: (is_ban ? 1 : 0)
         });
         return this.success(data);

@@ -15,7 +15,7 @@ module.exports = class extends Base {
             item.add_time = moment.unix(item.add_time).format('YYYY-MM-DD HH:mm:ss');
             let userInfo = await this.model('user').where({id:item.user_id}).find();
             if(!think.isEmpty(userInfo)){
-                item.nickname = Buffer.from(userInfo.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(userInfo.nickname, 'base64').toString();
             }
             else{
                 item.nickname = '已删除'

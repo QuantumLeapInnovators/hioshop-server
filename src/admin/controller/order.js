@@ -46,7 +46,7 @@ module.exports = class extends Base {
                 id: item.user_id
             }).field('nickname,name,mobile,avatar').find();
             if (!think.isEmpty(user)) {
-                user.nickname = Buffer.from(user.nickname, 'base64').toString();
+                // user.nickname = Buffer.from(user.nickname, 'base64').toString();
             } else {
                 user.nickname = '已删除'
             }
@@ -271,7 +271,7 @@ module.exports = class extends Base {
         let userInfo = await this.model('user').where({
             id: data.user_id
         }).find();
-        let _nickname = Buffer.from(userInfo.nickname, 'base64').toString();
+        // let _nickname = Buffer.from(userInfo.nickname, 'base64').toString();
         data.user_name = _nickname;
         data.avatar = userInfo.avatar;
         let province_name = await this.model('region').where({

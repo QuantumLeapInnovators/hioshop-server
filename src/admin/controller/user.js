@@ -1,5 +1,7 @@
 const Base = require('./base.js');
+const httpErrorCode=require("../../common/config/httpErrorCode.js");
 const moment = require('moment');
+const md5 = require('md5');
 module.exports = class extends Base {
     /**
      * index action
@@ -10,15 +12,15 @@ module.exports = class extends Base {
         const size = this.get('size') || 10;
         let nickname = this.get('nickname') || '';
         const buffer = Buffer.from(nickname);
-        nickname = buffer.toString('base64');
+        // nickname = buffer.toString('base64');
         const model = this.model('user');
         const data = await model.where({
-            nickname: ['like', `%${nickname}%`],
+            'nickname|name|username': ['like', `%${nickname}%`],
         }).order(['id DESC']).page(page, size).countSelect();
         for (const item of data.data) {
             item.register_time = moment.unix(item.register_time).format('YYYY-MM-DD HH:mm:ss');
             item.last_login_time = moment.unix(item.last_login_time).format('YYYY-MM-DD HH:mm:ss');
-            item.nickname = Buffer.from(item.nickname, 'base64').toString();
+            // item.nickname = Buffer.from(item.nickname, 'base64').toString();
         }
         let info = {
             userData: data,
@@ -33,7 +35,7 @@ module.exports = class extends Base {
         }).find();
         info.register_time = moment.unix(info.register_time).format('YYYY-MM-DD HH:mm:ss');
         info.last_login_time = moment.unix(info.last_login_time).format('YYYY-MM-DD HH:mm:ss');
-        info.nickname = Buffer.from(info.nickname, 'base64').toString();
+        // info.nickname = Buffer.from(info.nickname, 'base64').toString();
         return this.success(info);
     }
     async datainfoAction() {
@@ -278,4 +280,64 @@ module.exports = class extends Base {
         }).limit(1).delete();
         return this.success();
     }
+    async createUserAction(){
+        const nickname = this.post('nickname');
+        const username = this.post('username');
+        const name = this.post('name');
+        const password = this.post('password');
+        const mobile = this.post('mobile');
+        const clientIp = this.ctx.ip;
+        
+        // check by username;
+        const model = this.model('user');
+        const data = await model.where({
+            username: username
+        }).select();
+        // console.info("params username", data)
+        if(!think.isEmpty(data)){
+            return this.fail(httpErrorCode.DUPLICATE_USERNAME.code, httpErrorCode.DUPLICATE_USERNAME.msg)
+        }
+
+        // add new user
+        let currentTime = parseInt(new Date().getTime() / 1000);
+        let res = await this.model("user").add({
+            nickname: nickname,
+            username: username,
+            name: name,
+            password: md5(password),
+            register_time: currentTime,
+            register_ip: clientIp,
+            mobile: mobile,
+        });
+        return this.success(res);
+    }
+    async removeByIdsAction(){
+        const ids = this.post('ids');
+        const clientIp = this.ctx.ip;
+        console.log("removeByIdsAction by admin", clientIp);
+
+        const _ids = Array.isArray(ids) ? ids : [ids];
+
+        console.log("params ids", ids);
+        const model = this.model('user');
+        const data = await model.where({
+            id:["IN", _ids]
+        }).delete();
+        return this.success(data);
+    }
+    async banByIdsAction() {
+        const ids = this.post('ids');
+        const is_ban = this.post('isBan');
+        const clientIp = this.ctx.ip;
+        console.log("banByIdsAction by admin", clientIp);
+        const _ids = Array.isArray(ids) ? ids : [ids];
+        const model = this.model('user');
+        const data = await model.where({
+            id:["IN", _ids]
+        }).update({
+            is_ban: (is_ban ? 1 : 0)
+        });
+        return this.success(data);
+    }
+
 };

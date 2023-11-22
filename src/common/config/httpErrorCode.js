@@ -11,4 +11,12 @@ module.exports = {
         code:10011,
         msg:"用户名已存在"
     },
+    "PASSWORD_ERROR":{
+        code:10012,
+        msg:"密码错误"
+    },
+    "USER_BANED":{
+        code:10013,
+        msg:"用户未激活"
+    }
 }

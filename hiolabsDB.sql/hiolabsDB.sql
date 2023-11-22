@@ -12138,9 +12138,9 @@ CREATE TABLE `hiolabs_notice` (
 -- Records of hiolabs_notice
 -- ----------------------------
 BEGIN;
-INSERT INTO `hiolabs_notice` VALUES (8, '完全开源小程序商城 - github搜索：海风小店', 1764950399, 0);
-INSERT INTO `hiolabs_notice` VALUES (9, '可测试支付流程，但不发货不退款', 1764950399, 0);
-INSERT INTO `hiolabs_notice` VALUES (111, '如果可以，请在github点个star，谢谢', 1764950399, 0);
+INSERT INTO `hiolabs_notice` VALUES (8, '欢迎欢迎！！这是个通知', 1764950399, 0);
+-- INSERT INTO `hiolabs_notice` VALUES (9, '可测试支付流程，但不发货不退款', 1764950399, 0);
+-- INSERT INTO `hiolabs_notice` VALUES (111, '如果可以，请在github点个star，谢谢', 1764950399, 0);
 COMMIT;
 
 -- ----------------------------

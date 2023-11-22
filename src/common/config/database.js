@@ -9,5 +9,6 @@ module.exports = {
     port: '3306',
     user: 'root',
     password: '123456',
-    dateStrings: true
+    dateStrings: true,
+    charset: 'utf8mb4'
 };

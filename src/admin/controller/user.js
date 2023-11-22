@@ -35,7 +35,7 @@ module.exports = class extends Base {
         }).find();
         info.register_time = moment.unix(info.register_time).format('YYYY-MM-DD HH:mm:ss');
         info.last_login_time = moment.unix(info.last_login_time).format('YYYY-MM-DD HH:mm:ss');
-        info.nickname = Buffer.from(info.nickname, 'base64').toString();
+        // info.nickname = Buffer.from(info.nickname, 'base64').toString();
         return this.success(info);
     }
     async datainfoAction() {

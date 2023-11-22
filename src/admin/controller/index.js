@@ -55,7 +55,7 @@ module.exports = class extends Base {
             }).select();
             newUser = newData.length;
             for(const item of newData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             oldData = await this.model('user').where({
                 id: ['>', 0],
@@ -63,7 +63,7 @@ module.exports = class extends Base {
                 last_login_time: ['>', todayTimeStamp]
             }).select();
             for(const item of oldData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             oldUser = oldData.length;
             addCart = await this.model('cart').where({is_delete: 0, add_time: ['>', todayTimeStamp]}).count();
@@ -92,7 +92,7 @@ module.exports = class extends Base {
                 register_time: ['BETWEEN', yesTimeStamp, todayTimeStamp]
             }).select();
             for(const item of newData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             newUser = newData.length;
             oldData = await this.model('user').where({
@@ -101,7 +101,7 @@ module.exports = class extends Base {
                 last_login_time: ['BETWEEN', yesTimeStamp, todayTimeStamp]
             }).select();
             for(const item of oldData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             oldUser = oldData.length;
             addCart = await this.model('cart').where({
@@ -140,7 +140,7 @@ module.exports = class extends Base {
                 register_time: ['>', sevenTimeStamp]
             }).select();
             for(const item of newData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             newUser = newData.length;
             oldData = await this.model('user').where({
@@ -149,7 +149,7 @@ module.exports = class extends Base {
                 last_login_time: ['>', sevenTimeStamp]
             }).select();
             for(const item of oldData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             oldUser = oldData.length;
             addCart = await this.model('cart').where({
@@ -181,7 +181,7 @@ module.exports = class extends Base {
                 register_time: ['>', thirtyTimeStamp]
             }).select();
             for(const item of newData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             newUser = newData.length;
             oldData = await this.model('user').where({
@@ -190,7 +190,7 @@ module.exports = class extends Base {
                 last_login_time: ['>', thirtyTimeStamp]
             }).select();
             for(const item of oldData){
-                item.nickname = Buffer.from(item.nickname, 'base64').toString();
+                // item.nickname = Buffer.from(item.nickname, 'base64').toString();
             }
             oldUser = oldData.length;
             addCart = await this.model('cart').where({

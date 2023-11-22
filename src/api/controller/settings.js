@@ -43,7 +43,7 @@ module.exports = class extends Base {
         })
         .field("id,mobile,name,nickname,avatar")
         .find();
-      info.nickname = Buffer.from(info.nickname, "base64").toString();
+      // info.nickname = Buffer.from(info.nickname, "base64").toString();
       return this.success(info);
     }
     else{
